@@ -15,9 +15,19 @@ app.use(
   })
 );
 
+const products = [
+  { id: 1, name: "Product 1" },
+  { id: 2, name: "Product 2" },
+];
+
 app.use((req, res, next) => {
   res.set("Cross-Origin-Resource-Policy", "same-site, http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
   next();
+});
+
+app.get("/products", (req, res) => {
+  res.json(products);
 });
 
 app.use(express.static(path.join(__dirname, "public")));
